@@ -1,159 +1,137 @@
-//Objective: Solve linked list problems, assess big O for each excercise
 
-//Drill #1: Create a linked list 
+//Node class
+class _Node {
+    constructor() {
+        this.value = value; 
+        this.next = next; //pointer 
+    }
+}
 
+/* #1: Create a LL class w. its core functions */
 class LinkedList {
     constructor() {
-        //head indicates beginning of the list 
-        //we starting with an empty list represented by null 
-        this.head = null; 
+        this.head = null; //if the head null === list is empty 
     }
 
     insertFirst(item) {
-        //create a new node at the beginning of the list 
-        //point the head to that new node 
-        this.head = new _Node(item, this.head)
+        this.head = new _Node(item, this.head) //new node - item inside - is the first node in the list
     }
 
-    insertBefore(value, item) {
-        if (this.head === null) {
-           console.log('list is empty')
-           return; 
-        }
-        if (this.head.item === item) {
-            this.insertFirst(item);
-            return; 
-        } 
-        let currNode = this.head.next; 
-        let prevNode = this.head; 
-        while (currNode !== null) {
-            if (currNode.item === value) {
-                let newNode = new _Node(item);
-                newNode.next = prevNode.next; 
-                prevNode.next = newNode; 
-                return; 
-            }
-            prevNode = currNode; 
-            currNode = currNode.next; 
-        }
-        console.log('element is not in the linked list');
-    } 
-
-    insertAfter(value, item) {
-        if (this.head === null) {
-            console.log('list is empty')
-            return; 
-        }
-        let currNode = this.head; 
-        while (currNode !== null) {
-            if (currNode.item === value) {
-                let newNode = new _Node(item);
-                newNode.next = currNode.next; 
-                currNode.next = newNode;
-                return; 
-            }
-            currNode = currNode.next; 
-        }
-        console.log('element is not in the linked list')
-    }
-
-    insertAtIndex(index, item) {
-        let currNode = this.head; 
-        for (let i = 1; i < index; i++) {
-            if (currNode === null) {
-                console.log('index not available')
-                return; 
-            }
-            currNode = currNode.next; 
-        }
-        let newNode = new _Node(item);
-        newNode.next = currNode.next; 
-        curreNode.next = newNode; 
-    }
-
-    //Big O: 0(n) = worst case since we have to go through each item 
     insertLast(item) {
-        //check if the list is empty
         if (this.head === null) {
-        //insert new item as only item in the list if it is
-            this.insertFirst(item);
+            this.insertFirst(item)
         }
         else {
-            //start at the begining of the list & move through list until you've reached the end
-            let tempNode = this.head; 
-            //if tempNode isn't equal to null => move down to the next node 
-            while (tempNode.next !== null) {
-                tempNode = tempNode.next
-            }
-            //new node is now at the end of list & pointing to null 
-            tempNode.next = new _Node(item, null);
+            let lastNode = this.head; 
+            while (lastNode.next !== null) { //indicates that we're at the end of the list
+                lastNode = lastNode.next;
+            } 
+            lastNode.next = new _Node(item, null); //insert the new node & point it to null
         }
     }
 
-    //Best Case: O(1) => we find the item at the beginning of the list
-    //Worst Case: O(n) => because it could be anywhere in the list if it isnt at the 1st node 
     find(item) {
-        //start at the head 
-        let currNode = this.head; 
-        //if list is empty
+        //worst case = O(n)
+        let currNode = this.head; //start at the head of list
+
         if (!this.head) {
             return null; 
         }
-        //Check for the item 
-        while (currNode.value !== item) {
-            //return null if its the end of the list & item is not on the list
-            if (currNode.next === null) {
+        while (currNode.value !== item) { 
+            if (currNode.next === null) { //nothing else to lookup (reached end of list)
                 return null; 
-            } 
+            }
             else {
-                //otherwise, keep looking
-                currNode = currNode.next; 
+                currNode = currNode.next; //otherwise, keep looking
             }
         }
-        //Once you've found it 
         return currNode; 
     }
 
-  //Best case: O(1)
-  //Average & Worst case: O(n) due to finding node that you want to remove  
-    remove(item) {
-        //if list is empty 
+    removal(item) {
         if (!this.head) {
             return null; 
         }
-        //if node to be removed is head - make next node head
         if (this.head.value === item) {
-            this.head = this.head.next;
-            return; 
-        }
-        //Start at the head 
-        let currNode = this.head; 
-        //keep track of previous 
-        let previousNode = this.head; 
-
-        while ((currNode !== null) && (curreNode.value !== item)) {
-            //save previous node
-            previousNode = currNode; 
-            currNode = curreNode.next; 
-        }
-        if (currNode === null) {
-            console.log('Item no found')
+            this.head = this.head.next;  //make the next node the head
             return;
         }
-        previousNode.next = curreNode.next; 
+        let currNode = this.head; 
+        let previousNode = this.head; 
+        while ((currNode !== null) && (currNode.value !== item)) {
+            //save the previous node
+            previousNode = currNode; 
+            currNode = currNode.next; 
+        }
+        if (currNode === null) {
+            //we've reached the end of our LL with no value mathed w. item
+            console.log('Item not found')
+            return; 
+        }
+        previousNode.next = currNode.next; 
     }
 }
 
-
-//Drill #2: Create a singly list 
-
-function main() {
-    let SLL = new _LinkedList; 
-    SLL.insertFirst('Apollo')
-    SLL.insertAtIndex('Boomer')
-    SLL.insertAtIndex('Helo')
-    SLL.insertAtIndex('Husker')
-    SLL.insertAtIndex('Starbuck')
-    SLL.insertAtIndex('Tauhida')
-    SLL.remove('Husker')
+/* #2: Create a singly LL */
+class _Main {
+    constructor() {
+        this.value = value; 
+        this.next = next; 
+    }
 }
+
+class SLL {
+    constructor() {
+        this.head = null; 
+    }
+
+    insertApolloFirst(item) {
+        this.head = new _Main(item, this.head);
+    }
+
+    insertBoomerLast(item) {
+        if (this.head === null) {
+            return this.insertApolloFirst(item)
+        }
+        else {
+            let tempNode = this.head; 
+            while (tempNode.next !== next) {
+                tempNpde = tempNode.next;
+            }
+            tempNode.next = new _Main(item, null);
+        }
+    }
+
+    getAt(index) {
+        let counter = 0; 
+        let node = this.head; 
+        while(node) {
+            if (counter === index) {
+                return node; 
+            }
+            counter++; 
+            node = node.next; 
+        }
+        return null; 
+    }
+
+    insertAt(item, index) {
+        if (!this.head) {
+            return null; 
+        }
+        if (index === 0) {
+            this.head = new _Main(item, this.head);
+        }
+        else {
+            const previous = this.getAt(index - 1);
+            let newNode = new _Main(item);
+            newNode.next = previous.next; 
+            previous.next = newNode; 
+            return this.head; 
+        }
+    }
+
+}
+
+/*
+ */
